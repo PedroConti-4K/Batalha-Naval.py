@@ -49,9 +49,6 @@ while True:
         print('X    0     1     2     3     4     5     6     7     8     9')
         for i in range(10):
             for j in range(10):
-        #         if TabulJog[i][j] == 'X':
-        #             TabulJog[i][j] = '\U0001F6A2'
-        #         else:
                     TabulJog[i][j] = '\U0001F30A'
             print(f'{i} {TabulJog[i]}')
         print('------------------------------')
