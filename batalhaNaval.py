@@ -28,7 +28,7 @@ while True:
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0]
         ]
-    TabulPadrao = [
+    TabulAcertosJog = [
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
@@ -39,14 +39,41 @@ while True:
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0]
-    ]
-    def imprimTabulPadrao():
+        ]
+    TabulAcertosCom = [
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0]
+        ]
+    
+    def imprimTabulAcertosJog():
         print('X    0     1     2     3     4     5     6     7     8     9')
         for i in range(10):
             for j in range(10):
-                TabulPadrao[i][j] = '\U0001F30A'
+                if TabulAcertosJog[i][j] == 0:
+                    TabulAcertosJog[i][j] = '\U0001F30A'
+                if TabulAcertosJog[i][j] == 'X':
+                    TabulAcertosJog[i][j] = '\U0001F4A5'
         for i in range(10):
-            print(f'{i} {TabulPadrao[i]}')
+            print(f'{i} {TabulAcertosJog[i]}')
+
+    def imprimTabulAcertosCom():
+        print('X    0     1     2     3     4     5     6     7     8     9')
+        for i in range(10):
+            for j in range(10):
+                if TabulAcertosCom[i][j] == 0:
+                    TabulAcertosCom[i][j] = '\U0001F30A'
+                if TabulAcertosCom[i][j] == 'X':
+                    TabulAcertosCom[i][j] = '\U0001F4A5'
+        for i in range(10):
+            print(f'{i} {TabulAcertosCom[i]}')
 
     def imprimTabulJog():
         print('X    0     1     2     3     4     5     6     7     8     9')
@@ -54,8 +81,8 @@ while True:
             for j in range(10):
                 if jogador[i][j] == 0:
                     jogador[i][j] = '\U0001F30A'
-                if jogador[i][j] == 'X':
-                    jogador[i][j] = '\U0001F4A5'
+                if jogador[i][j] == 'O':
+                    jogador[i][j] = '\U0001F6A2'
         for i in range(10):
             print(f'{i} {jogador[i]}')
         print('--------------------------------------------------------------')
@@ -66,8 +93,8 @@ while True:
             for j in range(10):
                 if computador[i][j] == 0:
                     computador[i][j] = '\U0001F30A'
-                if computador[i][j] == 'X':
-                    computador[i][j] = '\U0001F4A5'
+                if computador[i][j] == 'O':
+                    computador[i][j] = '\U0001F6A2'
         for i in range(10):
             print(f'{i} {computador[i]}')
 
@@ -82,32 +109,68 @@ while True:
             linha = random.randint(0,9)
             coluna = random.randint(0,9)
             computador[linha][coluna] = 'O'
-        # imprimTabulJog()
         print('--------------------------------------------------------------')
-        print('Tabuleiro do Jogardor')
-        imprimTabulPadrao()
+        print('Tabuleiro do Jogador')
+        imprimTabulAcertosJog()
         print('--------------------------------------------------------------')
         print('Tabuleiro do Computador')
-        imprimTabulPadrao()
+        imprimTabulCom()
         print('--------------------------------------------------------------')
         print(f'ATAQUES!"\U0001F4A5"')
-        for i in range(5):
-            atqJogLinha = int(input(f'Digite uma linha para o {i+1} ataque: '))
-            atqJogColuna = int(input(f'Digite uma Coluna para o {i+1} ataque: '))
-            if (atqJogLinha and atqJogColuna) == (computador[linha][coluna] == 'O'):
-                computador[linha][coluna] = 'X'
-                print('Você acertou uma embracação')
+        acertosJog = 0
+        acertosCom = 0
+        i = 0
+        while i <5:
+            atqL = computador[linha]
+            atqC = computador[coluna]
+            atqL = int(input(f'Digite a linha do {i+1} ataque: '))
+            atqC = int(input(f'Digite a coluna do {i+1} ataque: '))
+            if computador[atqL][atqC] == '\U0001F6A2':
+                TabulAcertosJog[atqL][atqC] = 'X'
+                acertosJog +=1
+                print('Você acertou uma embarcação')
+                print('--------------------------------------------------------------')
+            else:
+                print('Você errou')
+                print('--------------------------------------------------------------')
+            print('Tabuleiro do Computador')
+            imprimTabulAcertosJog()
+            print('--------------------------------------------------------------')
+            atqComL = jogador[linha]
+            atqComC = jogador[coluna]
+            atqComL = random.randint(0,9)
+            print(f'O computador atacou a linha {atqComL}')
+            atqComC = random.randint(0,9)
+            print(f'O computador atacou a coluna {atqComC}')
+            if jogador[atqComL][atqComC] == '\U0001F6A2':
+                TabulAcertosCom[atqComL][atqComC] = 'X'
+                acertosCom +=1
+                print('O computador acertou uma embarcação')
+                print('--------------------------------------------------------------')
+            else:
+                print('O computador errou')
+                print('--------------------------------------------------------------')
+            print('Tabuleiro do Jogador')
+            imprimTabulAcertosCom()
+            print('--------------------------------------------------------------')
+            print('Placar')
+            print(f'Jogador: {acertosJog}')
+            print(f'Computador: {acertosCom}')
+            print('--------------------------------------------------------------')
+            i +=1
+            if i == 5:
+                print('Placar Final')
+                print(f'O jogador acertou {acertosJog} embarcações')
+                print(f'O Computador acertou {acertosCom} embarcações')
+                print('--------------------------------------------------------------')
+                print('Tabuleiro do Jogador')
+                imprimTabulJog()
                 print('Tabuleiro do Computador')
                 imprimTabulCom()
                 print('--------------------------------------------------------------')
-            atqComLinha = random.randint(0,9)
-            atqComColuna = random.randint(0,9)
-            if (atqComLinha and atqComColuna) == (jogador[linha][coluna] == 'O'):
-                jogador[linha][coluna] = 'X'
-                print('O computador acertou uma embracação')
-                print('Tabuleiro do Jogador')
-                imprimTabulJog()
-    print('Você quer jogar?\n1. Sim, jogar\n0. sair')
+                print('Desenvolvido por:\nLeo\nPedro\nRenan')
+                print('--------------------------------------------------------------')
+    print('Você quer jogar?\n1. Sim, jogar\n0. Não, sair')
     batNaval = int(input(''))
     if batNaval == 0:
         break
