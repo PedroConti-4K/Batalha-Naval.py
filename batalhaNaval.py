@@ -114,7 +114,7 @@ while True:
         imprimTabulAcertosJog()
         print('--------------------------------------------------------------')
         print('Tabuleiro do Computador')
-        imprimTabulCom()
+        imprimTabulAcertosCom()
         print('--------------------------------------------------------------')
         print(f'ATAQUES!"\U0001F4A5"')
         acertosJog = 0
