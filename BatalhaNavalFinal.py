@@ -39,14 +39,14 @@ def mostrar_tabuleiro(tabuleiro, titulo):
         for j in range(10):
             print(tabuleiro[i][j], end=" ")
         print()
+    print('--------------------------------')
 
 def posicionar_navios_jogador(secreto_jogador):
     print("\nPosicione suas 5 embarcações!")
     
     navios = 0
     while navios < 5:
-        mostrar_tabuleiro(secreto_jogador, "Seu tabuleiro")
-        
+        mostrar_tabuleiro(secreto_jogador, "Seu tabuleiro\n ")
         linha = input("Digite a linha (0-9): ")
         if not linha.isdigit():
             print("Digite apenas números!")
@@ -55,7 +55,7 @@ def posicionar_navios_jogador(secreto_jogador):
         if linha < 0 or linha > 9:
             print("Coordenada inválida! Digite um número entre 0 e 9.")
             continue
-
+        
         coluna = input("Digite a coluna (0-9): ")
         if not coluna.isdigit():
             print("Digite apenas números!")
@@ -99,8 +99,7 @@ def atacar(linha,coluna,secreto_alvo,visivel_alvo):
         return "erro"
 
 def turno_jogador(secreto_pc,visivel_pc,visivel_jogador):
-    print('--------------------------------------------------------------')
-    print("É sua vez de atacar, escolha a posição do tabuleiro adversário ")
+    print(f"É sua vez de atacar, escolha a posição do tabuleiro adversário ")
     while(True):
         linha = input("Digite a linha (0-9): ")
         if not linha.isdigit():
@@ -110,7 +109,7 @@ def turno_jogador(secreto_pc,visivel_pc,visivel_jogador):
         if linha < 0 or linha > 9:
             print("Coordenada inválida! Digite um número entre 0 e 9.")
             continue
-            
+
         coluna = input("Digite a coluna (0-9): ") 
         if not coluna.isdigit():
             print("Digite apenas números!")
@@ -119,11 +118,11 @@ def turno_jogador(secreto_pc,visivel_pc,visivel_jogador):
         if coluna < 0 or coluna > 9:
             print("Coordenada inválida! Digite um número entre 0 e 9.")
             continue
-            
+
         limpar_tela()
         animacao_ataque()
         limpar_tela()
-        
+
         resultado = atacar(linha,coluna,secreto_pc,visivel_pc)
         if resultado == "repetido":
             print("Essa posição já foi atacada, mais atenção")
@@ -131,41 +130,41 @@ def turno_jogador(secreto_pc,visivel_pc,visivel_jogador):
             mostrar_tabuleiro(visivel_pc, "Tabuleiro do Computador")
             continue
         elif resultado == "acerto":
-            print("Parabéns, você encontrou e destruiu uma embarcação!")
+            print("Parabéns, você encontrou e destruiu uma embarcação")
             time.sleep(1.5)
             mostrar_tabuleiro(visivel_pc, "Tabuleiro do Computador")
             break
         elif resultado == "erro":
-            print("Que pena, seu ataque foi na água.")
+            print("Que pena, seu ataque foi na água")
             time.sleep(1.5)
             mostrar_tabuleiro(visivel_pc, "Tabuleiro do Computador")
             break
-
+        
 def turno_computador(secreto_jogador, visivel_jogador, visivel_pc):
     limpar_tela()
-    print("Vez do computador!")
+    print("Vez do Computador")
     time.sleep(1.5)
     animacao_ataque()
     limpar_tela()
-    
+
     while(True):
         ataquelinha = random.randint(0,9)
         ataquecoluna = random.randint(0,9)
         ataque = atacar(ataquelinha,ataquecoluna,secreto_jogador,visivel_jogador)
-        
+
         if ataque == "repetido":
             continue
         elif ataque == "acerto":
             print("O computador acertou uma embarcação sua!")
             time.sleep(1)
-            print(f"O navio da linha {ataquelinha} e coluna {ataquecoluna} foi destruído.")
+            print(f"O navio da linha {ataquelinha} e coluna {ataquecoluna} foi destruído")
             time.sleep(1.5)
             mostrar_tabuleiro(visivel_jogador, "Tabuleiro do Jogador")
             break
         elif ataque == "erro":
-            print("O computador errou seu ataque.")
+            print("O computador errou seu ataque")
             time.sleep(1)
-            print(f"Ataque do computador: linha {ataquelinha} e coluna {ataquecoluna}")
+            print(f"O computador atacou a linha {ataquelinha} e a coluna {ataquecoluna}")
             time.sleep(1.5)
             mostrar_tabuleiro(visivel_jogador, "Tabuleiro do Jogador")
             break
@@ -185,35 +184,35 @@ def main():
     secreto_pc = criar_tabuleiro()
     visivel_jogador = criar_tabuleiro()
     visivel_pc = criar_tabuleiro()
-    
+
     posicionar_navios_jogador(secreto_jogador)
     posicionar_navios_pc(secreto_pc)
-    
+
     time.sleep(3)
     limpar_tela()
     mostrar_tabuleiro(visivel_jogador,"Tabuleiro do Jogador")
     mostrar_tabuleiro(visivel_pc, "Tabuleiro do Computador")
-    
+
     while True:
         turno_jogador(secreto_pc, visivel_pc, visivel_jogador)
         if verificar_vitoria(visivel_pc):
-            print("\nParabéns! Você afundou toda a frota inimiga!")
+            print("Parabéns! Você afundou toda a frota inimiga!")
+            mostrar_tabuleiro(visivel_jogador,"Tabuleiro do Jogador")
+            mostrar_tabuleiro(visivel_pc, "Tabuleiro do Computador")
             print("Obrigado por jogar!")
-            print("Jogo Desenvolvido por Leo Takano, Pedro Henrique e Renan Nascimento")
+            print("Desenvolvido por:\nLeo Takano\nPedro Henrique\nRenan Nascimento")
             break
-            
+
         time.sleep(4)
-        
+
         turno_computador(secreto_jogador, visivel_jogador, visivel_pc)
         if verificar_vitoria(visivel_jogador):
-            print("\nO computador afundou toda a sua frota! Você perdeu!")
+            print("O computador afundou toda a sua frota! Você perdeu!")
+            mostrar_tabuleiro(visivel_jogador,"Tabuleiro do Jogador")
+            mostrar_tabuleiro(visivel_pc, "Tabuleiro do Computador")
             print("Obrigado por jogar!")
-            print("Jogo Desenvolvido por:\nLeo Takano\nPedro Henrique\nRenan Nascimento")
+            print("Desenvolvido por:\nLeo Takano\nPedro Henrique\nRenan Nascimento")
             break
-            
-        time.sleep(4)
+        time.sleep(7)
         limpar_tela()
-        mostrar_tabuleiro(visivel_jogador, "Tabuleiro do Jogador")
-        mostrar_tabuleiro(visivel_pc, "Tabuleiro do Computador")
-
 main()
