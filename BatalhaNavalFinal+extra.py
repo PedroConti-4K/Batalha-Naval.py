@@ -72,6 +72,7 @@ def posicionar_navios_jogador(secreto_jogador):
             print("Já tem uma embarcação aí! Escolha outra posição.")
             continue
         secreto_jogador[Navio_linha][Navio_coluna] = NAVIO
+        mostrar_tabuleiro(secreto_jogador, "Seu tabuleiro\n ")
         
         # Submarino
         Submarino_linha = input("Digite a linha para o Submarino (0-9): ")
@@ -97,6 +98,7 @@ def posicionar_navios_jogador(secreto_jogador):
                 continue
         for i in range(2):
             secreto_jogador[Submarino_linha][Submarino_coluna+i] = SUBMARINO
+            mostrar_tabuleiro(secreto_jogador, "Seu tabuleiro\n ")
 
         # Torpedeiro
         Torpedeiro_linha = input("Digite a linha para o Contra-Torpedeiro (0-9): ")
@@ -122,6 +124,7 @@ def posicionar_navios_jogador(secreto_jogador):
                 continue
         for i in range(3):
             secreto_jogador[Torpedeiro_linha][Torpedeiro_coluna+i] = CONTRA_TORPEDEIRO
+            mostrar_tabuleiro(secreto_jogador, "Seu tabuleiro\n ")
 
         # Tanque
         Tanque_linha = input("Digite a linha para o Navio-Tanque (0-9): ")
@@ -148,6 +151,7 @@ def posicionar_navios_jogador(secreto_jogador):
                 continue
         for i in range(4):
             secreto_jogador[Tanque_linha][Tanque_coluna+i] = TANQUE
+            mostrar_tabuleiro(secreto_jogador, "Seu tabuleiro\n ")
 
         # Porta Aviões
         Porta_linha = input("Digite a linha para o Porta-Aviões (0-9): ")
@@ -334,7 +338,7 @@ def verificar_vitoria(visivel):
         for j in range(10):
             if visivel[i][j] == ACERTO:
                 acertos += 1
-    return acertos == 5
+    return acertos == 15
 
 def main():
     limpar_tela()
@@ -347,7 +351,7 @@ def main():
     posicionar_navios_jogador(secreto_jogador)
     posicionar_navios_pc(secreto_pc)
 
-    time.sleep(3)
+    time.sleep(10)
     limpar_tela()
     mostrar_tabuleiro(visivel_jogador,"Tabuleiro do Jogador")
     mostrar_tabuleiro(visivel_pc, "Tabuleiro do Computador")
