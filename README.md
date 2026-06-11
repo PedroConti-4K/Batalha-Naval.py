@@ -2,6 +2,6 @@
 
 Jogo Batalha Naval
 Feito por:
-.Leo
-.Pedro
-.Renan
+Leo
+Pedro
+Renan
