@@ -1,3 +1,7 @@
 # Batalha-Naval.py
 
-smash or pass barco 2
+Jogo Batalha Naval
+Feito por:
+.Leo
+.Pedro
+.Renan
